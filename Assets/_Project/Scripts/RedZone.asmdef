@@ -1,0 +1,6 @@
+{
+    "name": "RedZone",
+    "rootNamespace": "RedZone",
+    "references": ["Unity.InputSystem", "UnityEngine.UI"],
+    "autoReferenced": true
+}

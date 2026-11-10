@@ -1,0 +1,7 @@
+{
+    "name": "RedZone.Editor",
+    "rootNamespace": "RedZone.EditorTools",
+    "references": ["RedZone", "Unity.InputSystem", "UnityEngine.UI"],
+    "includePlatforms": ["Editor"],
+    "autoReferenced": false
+}
