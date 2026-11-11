@@ -135,14 +135,17 @@ namespace RedZone.Tests
         public void Move_IntoAFullCriticalRegion_IsARaceCondition()
         {
             var b = new Board(Def(1, "G.R", "..R"), 1);
-            var t = b.Fork();
-            t.Pos = new Vector2Int(1, 0); b.ZoneAt(new Vector2Int(0, 0)).Count = 0; t.Zone = -1;
-            // a finished thread holds the only permit
-            var holder = b.Fork();
-            Assert.IsNotNull(holder);
-            holder.Running = false;
-            b.Move(Dir.Down); // walk holder? it is finished, only t moves: t -> (1,1)
-            b.Move(Dir.Right);  // t -> (2,1): critical, now 2 of 1
+            var first = b.Fork();
+            b.Move(Dir.Right); b.Move(Dir.Right);           // first -> (2,0), inside the region: S goes 1 -> 0
+            Assert.IsFalse(b.Over);
+            Assert.AreEqual(0, b.ZoneAt(new Vector2Int(2, 0)).Free);
+            b.Tick(3.1f);                                    // its quantum ends: it keeps holding the permit
+            Assert.IsFalse(first.Running);
+            var second = b.Fork();
+            Assert.AreEqual(Vector2Int.zero, second.Pos);
+            b.Move(Dir.Down); b.Move(Dir.Right);             // second -> (1,1)
+            Assert.IsFalse(b.Over);
+            b.Move(Dir.Right);                               // second -> (2,1): two threads, one permit
             Assert.IsTrue(b.Over);
             Assert.AreEqual(CrashCause.RaceCondition, b.Cause);
         }
