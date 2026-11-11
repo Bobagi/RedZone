@@ -35,7 +35,7 @@ namespace RedZone.UI
             bg.speeds = new float[bg.packets.Length];
             for (int i = 0; i < bg.packets.Length; i++)
             {
-                var p = Ui.Box(r, "Packet", new Vector2(0, 0), Vector2.zero, new Vector2(24, 24));
+                var p = bg.packets[i] = Ui.Box(r, "Packet", new Vector2(0, 0), Vector2.zero, new Vector2(24, 24));
                 Ui.Image(p, "Q", Theme.A(Theme.Threads[i % Theme.Threads.Length], 0.18f), Theme.RoundSmall, true);
                 bg.Respawn(i, true);
             }

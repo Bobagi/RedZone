@@ -19,3 +19,4 @@
 # recovery scratch
 /_recovery/check/
 /_recovery/*.log
+/autoplay/
