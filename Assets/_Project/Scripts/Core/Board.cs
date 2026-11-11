@@ -283,7 +283,7 @@ namespace RedZone.Core
         /// </summary>
         public int Move(Dir d)
         {
-            if (Over || Hold) return 0;
+            if (Over) return 0;
             var movers = new List<ThreadUnit>();
             foreach (var t in Threads) if (t.Running) movers.Add(t);
             if (movers.Count == 0) return 0;
