@@ -110,6 +110,9 @@ namespace RedZone.UI
         {
             HideAll();
             boardArea.gameObject.SetActive(false);
+            // the tutorial's callout sits under the board: give it room instead of covering the bottom row
+            var lvl = GameFlow.I != null ? GameFlow.I.Level : null;
+            boardArea.offsetMin = new Vector2(70, lvl != null && lvl.tutorial ? 270 : 120);
             current = null;
             switch (s)
             {
@@ -242,8 +245,9 @@ namespace RedZone.UI
                 var pos = new Vector2((col - 1.5f) * gx, 170 - row * gy);
                 cards.Add(Card(s, def, (i + 1).ToString("00"), pos, new Vector2(w, h)));
             }
-            var c1 = Card(s, Levels.Classic, "2019", new Vector2(-gx * 0.5f - 10, 170 - 2 * gy), new Vector2(w + 200, 200));
-            var c2 = Card(s, Levels.Endless, "∞", new Vector2(gx * 0.5f + 10, 170 - 2 * gy), new Vector2(w + 200, 200));
+            var c1 = Card(s, Levels.Classic, "2019", new Vector2(-gx * 0.5f - 95, 170 - 2 * gy + 20), new Vector2(w + 200, 200));
+            var c2 = Card(s, Levels.Endless, "∞", new Vector2(gx * 0.5f + 95, 170 - 2 * gy + 20), new Vector2(w + 200, 200));
+            c2.Item2.GetComponent<MenuButtonFx>().value.font = Theme.Display;
             cards.Add(c1); cards.Add(c2);
             firstButton[s] = cards[0].b.gameObject;
             var back = Ui.Button(s, Loc.T("menu.back"), () => GameFlow.I.Back(), new Vector2(0, 0), new Vector2(200, 70), new Vector2(260, 64), 32);
@@ -362,7 +366,7 @@ namespace RedZone.UI
                 char ch = rows[y][x];
                 var pos = new Vector2((x - (w - 1) * 0.5f) * cell, ((h - 1) * 0.5f - y) * cell);
                 var r = Ui.Box(area, "C", new Vector2(0.5f, 0.5f), pos, new Vector2(cell - 8, cell - 8));
-                Color c = Theme.Cell;
+                Color c = Theme.A(Theme.PanelLine, 0.8f);
                 if (ch == 'G') c = Theme.A(Theme.Gate, 0.3f);
                 else if (ch == 'R') c = Theme.A(Theme.Critical, 0.32f);
                 else if (ch == 'S') c = Theme.A(Theme.Signal, 0.32f);
@@ -531,8 +535,8 @@ namespace RedZone.UI
             Ui.Text(card.transform, "Concept", Loc.T(def.conceptKey), 34, Theme.Body, Theme.Text, TextAnchor.UpperCenter, Vector2.zero, Vector2.one, new Vector2(80, 0), new Vector2(-80, -195));
             string goal = def.goal > 0 ? Loc.F("intro.goal", def.goal) : Loc.T("intro.endless");
             Ui.Text(card.transform, "Goal", goal + "    ·    " + Loc.F("intro.capacity", def.capacity), 32, Theme.Mono, Theme.Gate, TextAnchor.LowerCenter,
-                Vector2.zero, Vector2.one, Vector2.zero, new Vector2(0, 100));
-            var press = Ui.Text(card.transform, "Press", Loc.T("intro.press"), 30, Theme.Body, Theme.Dim, TextAnchor.LowerCenter, Vector2.zero, Vector2.one, Vector2.zero, new Vector2(0, 34));
+                Vector2.zero, Vector2.one, new Vector2(0, 110), Vector2.zero);
+            var press = Ui.Text(card.transform, "Press", Loc.T("intro.press"), 30, Theme.Body, Theme.Dim, TextAnchor.LowerCenter, Vector2.zero, Vector2.one, new Vector2(0, 36), Vector2.zero);
             press.gameObject.AddComponent<Blink>();
         }
 
@@ -574,12 +578,12 @@ namespace RedZone.UI
             for (int i = 0; i < 3 && def.campaign; i++)
             {
                 var sr = Ui.Box(card.transform, "Star", new Vector2(0.5f, 1), new Vector2((i - 1) * 130, -240), new Vector2(110, 110));
-                var img = Ui.Image(sr, "S", i < stars ? Theme.Yellow : Theme.A(Theme.Yellow, 0.3f), i < stars ? Theme.Star : Theme.StarHollow);
+                var img = Ui.Image(sr, "S", i < stars ? Theme.Yellow : Theme.A(Theme.Yellow, 0.55f), i < stars ? Theme.Star : Theme.StarHollow);
                 sr.gameObject.AddComponent<PopIn>().delay = 0.25f + i * 0.28f;
                 if (i < stars) sr.GetComponent<PopIn>().sound = true;
             }
             float top = def.campaign ? -320 : -190;
-            Ui.Text(card.transform, "Stats", Stats(b), 34, Theme.Mono, Theme.Text, TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(110, 0), new Vector2(-560, top));
+            Ui.Text(card.transform, "Stats", Stats(b), 42, Theme.Mono, Theme.Text, TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(110, 0), new Vector2(-560, top));
             var hint = def.campaign ? Loc.T("win.hint") + (f.LastBest ? "" : "") : (f.LastBest ? Loc.T("win.newbest") : "");
             Ui.Text(card.transform, "Hint", hint, 28, Theme.Body, Theme.Dim, TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(660, 0), new Vector2(-70, top - 10));
             bool hasNext = Levels.IndexOf(def) >= 0 && Levels.IndexOf(def) + 1 < Levels.Campaign.Length;
@@ -616,7 +620,7 @@ namespace RedZone.UI
 
         void BuildCallout()
         {
-            calloutBox = Ui.Node(root, "Callout", new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(-640, 120), new Vector2(640, 250));
+            calloutBox = Ui.Node(root, "Callout", new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(-760, 118), new Vector2(760, 248));
             var back = Ui.Image(calloutBox, "Back", Theme.A(Theme.Ink, 0.94f), Theme.Round, true);
             Ui.Outline(back, Theme.Yellow, 3f);
             back.gameObject.AddComponent<Pulse>().target = back;

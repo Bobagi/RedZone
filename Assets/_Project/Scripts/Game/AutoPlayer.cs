@@ -99,7 +99,7 @@ namespace RedZone.Game
             Time.timeScale = 1f;
             float wait = 0f;
             while (f.State != State.Result && wait < 4f && def.goal > 0) { wait += Time.unscaledDeltaTime; yield return null; }
-            yield return new WaitForSecondsRealtime(0.8f);
+            yield return new WaitForSecondsRealtime(1.8f);     // the result stars pop in over ~1.2 s
             if (n <= 3 || def == Levels.Classic || f.State == State.Result) yield return Shot("13_" + tag + "_result");
         }
     }
