@@ -620,12 +620,12 @@ namespace RedZone.UI
                 Loc.F("lose.race.why", b.CrashZone != null ? b.CrashZone.Count : def.capacity + 1, b.CrashZone != null ? b.CrashZone.Capacity : def.capacity);
             Ui.Text(s, "Why", Loc.T(cause) + "\n" + why, 34, Theme.Body, Color.white, TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(0, 0), new Vector2(-300, -440));
             string score = def.goal > 0 ? Loc.F("lose.progress", b.Completed, def.goal) : Loc.F("lose.endless", b.Completed) + (f.LastBest ? "   " + Loc.T("win.newbest") : "");
-            Ui.Text(s, "Score", score, 34, Theme.Mono, Color.white, TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(0, 0), new Vector2(0, -735));
+            Ui.Text(s, "Score", score, 34, Theme.Mono, Color.white, TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(0, 0), new Vector2(0, -700));
             Ui.Text(s, "Code", Loc.F("lose.code", b.Cause == CrashCause.Deadlock ? "DEADLOCK_NO_FREE_SEMAPHORE" : "RACE_CONDITION_IN_CRITICAL_SECTION"), 28, Theme.Mono, Theme.A(Color.white, 0.8f),
-                TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(0, 0), new Vector2(0, -795));
-            var retry = Ui.Button(result, Loc.T("lose.retry"), () => GameFlow.I.Restart(), new Vector2(0, 0), new Vector2(390, 120), new Vector2(340, 72), 34);
+                TextAnchor.UpperLeft, Vector2.zero, Vector2.one, new Vector2(0, 0), new Vector2(0, -752));
+            var retry = Ui.Button(result, Loc.T("lose.retry"), () => GameFlow.I.Restart(), new Vector2(0, 0), new Vector2(390, 84), new Vector2(340, 72), 34);
             Ui.Button(result, Loc.T(def.campaign ? "win.levels" : "pause.menu"), () => { if (def.campaign) GameFlow.I.ShowLevels(); else GameFlow.I.ShowTitle(); },
-                new Vector2(0, 0), new Vector2(750, 120), new Vector2(340, 72), 34);
+                new Vector2(0, 0), new Vector2(750, 84), new Vector2(340, 72), 34);
             firstButton[result] = retry.gameObject;
         }
 
