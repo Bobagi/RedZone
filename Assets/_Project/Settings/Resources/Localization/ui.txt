@@ -1,0 +1,116 @@
+# Textos do jogo (Loc.cs). Gerado por SourceAssets/Tools/make_loc.py. Colunas separadas por TAB: chave, pt-BR, en, es.
+key	pt-BR	en	es
+title.sub	um jogo sobre semáforos	a game about semaphores	un juego sobre semáforos
+title.live	kernel ao vivo: o robô jogando	live kernel: the robot playing	kernel en vivo: el robot jugando
+menu.campaign	Campanha	Campaign	Campaña
+menu.classic	Clássico (2019)	Classic (2019)	Clásico (2019)
+menu.endless	Infinito	Endless	Infinito
+menu.how	Como funciona	How it works	Cómo funciona
+menu.options	Opções	Options	Opciones
+menu.credits	Créditos	Credits	Créditos
+menu.quit	Sair	Quit	Salir
+menu.back	Voltar	Back	Volver
+menu.stars	{0} / {1} estrelas	{0} / {1} stars	{0} / {1} estrellas
+menu.footer	Projeto original de faculdade (2019): Gustavo Antonio Perin e Natã Daniel Gomes  ·  rework 2026	Original university project (2019): Gustavo Antonio Perin and Natã Daniel Gomes  ·  2026 rework	Proyecto original de la facultad (2019): Gustavo Antonio Perin y Natã Daniel Gomes  ·  rework 2026
+levels.title	Campanha	Campaign	Campaña
+levels.locked	BLOQUEADO	LOCKED	BLOQUEADO
+levels.best	Recorde: {0}	Best: {0}	Récord: {0}
+lvl.l1	fork()	fork()	fork()
+lvl.l1.c	Threads nascem na entrada verde e só andam enquanto têm tempo.	Threads are born on the green gate and only move while they have time.	Los hilos nacen en la entrada verde y solo se mueven mientras tienen tiempo.
+lvl.l2	Mutex	Mutex	Mutex
+lvl.l2.c	A região crítica agora tem uma vaga só: exclusão mútua.	The critical region now has a single permit: mutual exclusion.	La región crítica ahora tiene un solo permiso: exclusión mutua.
+lvl.l3	Espelho	Mirror	Espejo
+lvl.l3.c	Threads da direita andam ao contrário na horizontal. O mesmo comando, dois efeitos.	Threads from the right move mirrored sideways. One instruction, two effects.	Los hilos de la derecha se mueven al revés en horizontal. Una instrucción, dos efectos.
+lvl.l4	Paredes	Walls	Paredes
+lvl.l4.c	Memória ocupada: paredes travam o caminho e prendem threads.	Taken memory: walls block the way and trap threads.	Memoria ocupada: las paredes bloquean el camino y atrapan hilos.
+lvl.l5	signal()	signal()	signal()
+lvl.l5.c	Pise no bloco azul V(): ele libera uma vaga presa na região crítica.	Step on the blue V() pad: it frees a permit stuck in the critical region.	Pisa el bloque azul V(): libera un permiso atrapado en la región crítica.
+lvl.l6	Dois recursos	Two resources	Dos recursos
+lvl.l6.c	Duas regiões críticas, cada uma com uma vaga. Cuidado com o meio.	Two critical regions, one permit each. Mind the middle.	Dos regiones críticas, un permiso cada una. Cuidado con el medio.
+lvl.l7	Gargalo	Bottleneck	Cuello de botella
+lvl.l7.c	Entradas estreitas: uma thread parada ali bloqueia o fork().	Narrow gates: one thread stopped there blocks fork().	Entradas estrechas: un hilo detenido ahí bloquea fork().
+lvl.l8	Kernel panic	Kernel panic	Kernel panic
+lvl.l8.c	Tudo junto e mais rápido. Mostre que entendeu semáforos.	Everything at once, and faster. Show you understand semaphores.	Todo junto y más rápido. Demuestra que entiendes los semáforos.
+lvl.classic	Clássico	Classic	Clásico
+lvl.classic.c	As regras e números do jogo de 2019: 116 threads para vencer.	The rules and numbers of the 2019 game: 116 threads to win.	Las reglas y números del juego de 2019: 116 hilos para ganar.
+lvl.endless	Infinito	Endless	Infinito
+lvl.endless.c	Sem meta. Quantas threads o seu kernel aguenta?	No goal. How many threads can your kernel take?	Sin meta. ¿Cuántos hilos aguanta tu kernel?
+intro.level	NÍVEL {0}	LEVEL {0}	NIVEL {0}
+intro.classic	MODO CLÁSSICO	CLASSIC MODE	MODO CLÁSICO
+intro.endless.tag	MODO INFINITO	ENDLESS MODE	MODO INFINITO
+intro.goal	Meta: concluir {0} threads	Goal: complete {0} threads	Meta: completar {0} hilos
+intro.endless	Meta: durar o máximo	Goal: last as long as you can	Meta: durar lo máximo
+intro.capacity	região crítica: S={0}	critical region: S={0}	región crítica: S={0}
+intro.press	Pressione qualquer tecla para começar	Press any key to start	Pulsa cualquier tecla para empezar
+hud.done	concluídas	done	completados
+hud.fork	próximo fork()	next fork()	próximo fork()
+hud.move	mover threads	move threads	mover hilos
+hud.pause	pausa	pause	pausa
+hud.restart	reiniciar	restart	reiniciar
+legend.gate	entrada (S=1)	gate (S=1)	entrada (S=1)
+legend.crit	região crítica	critical region	región crítica
+legend.signal	V(): libera vaga	V(): frees a permit	V(): libera permiso
+pause.title	PAUSA	PAUSED	PAUSA
+pause.resume	Continuar	Resume	Continuar
+pause.restart	Reiniciar nível	Restart level	Reiniciar nivel
+pause.options	Opções	Options	Opciones
+pause.levels	Escolher nível	Level select	Elegir nivel
+pause.menu	Menu principal	Main menu	Menú principal
+win.title	PROCESSO CONCLUÍDO	PROCESS COMPLETE	PROCESO COMPLETADO
+win.classic	Parabéns!	Congratulations!	¡Felicidades!
+win.next	Próximo nível	Next level	Siguiente nivel
+win.retry	Jogar de novo	Play again	Jugar de nuevo
+win.levels	Níveis	Levels	Niveles
+win.newbest	Novo recorde!	New record!	¡Nuevo récord!
+win.hint	3 estrelas: nenhuma thread forçada na região crítica.\n2 estrelas: até duas.	3 stars: no thread forced into the critical region.\n2 stars: two at most.	3 estrellas: ningún hilo forzado a la región crítica.\n2 estrellas: dos como máximo.
+stat.threads	threads concluídas  {0}	threads completed  {0}	hilos completados  {0}
+stat.forced	forçadas na região  {0}	forced into region  {0}	forzados a la región  {0}
+stat.releases	sinais V() usados   {0}	V() signals used    {0}	señales V() usadas  {0}
+stat.moves	instruções         {0}	instructions       {0}	instrucciones      {0}
+stat.time	tempo              {0}	time               {0}	tiempo             {0}
+lose.title	Seu kernel encontrou um problema e precisa ser reiniciado.	Your kernel ran into a problem and needs to restart.	Tu kernel encontró un problema y necesita reiniciarse.
+lose.race	Condição de corrida na região crítica.	Race condition in the critical region.	Condición de carrera en la región crítica.
+lose.race.why	Entraram {0} threads numa região com S={1}. Um semáforo nunca deixa passar mais threads do que vagas.	{0} threads entered a region with S={1}. A semaphore never lets in more threads than it has permits.	Entraron {0} hilos en una región con S={1}. Un semáforo nunca deja pasar más hilos que permisos.
+lose.deadlock	Deadlock: não havia lugar para o fork().	Deadlock: there was no room for fork().	Deadlock: no había lugar para fork().
+lose.deadlock.why	Todas as entradas estavam ocupadas e a região crítica estava cheia. Não deixe threads terminarem na entrada verde.	Every gate was taken and the critical region was full. Do not let threads finish on the green gate.	Todas las entradas estaban ocupadas y la región crítica llena. No dejes que los hilos terminen en la entrada verde.
+lose.progress	{0} de {1} threads concluídas	{0} of {1} threads completed	{0} de {1} hilos completados
+lose.endless	Você concluiu {0} threads.	You completed {0} threads.	Completaste {0} hilos.
+lose.code	Código de parada: {0}	Stop code: {0}	Código de detención: {0}
+lose.retry	Tentar de novo	Try again	Intentar de nuevo
+tut.move	Esta é uma <b>thread</b>. Use as <b>setas</b> (ou WASD) para movê-la.\nO tempo está parado até você mexer.	This is a <b>thread</b>. Use the <b>arrows</b> (or WASD) to move it.\nTime is frozen until you move.	Este es un <b>hilo</b>. Usa las <b>flechas</b> (o WASD) para moverlo.\nEl tiempo está detenido hasta que te muevas.
+tut.gate	Tire a thread da <b>entrada verde</b>. Se ela terminar ali, a entrada fica trancada.	Get the thread off the <b>green gate</b>. If it finishes there, the gate stays locked.	Saca el hilo de la <b>entrada verde</b>. Si termina ahí, la entrada queda bloqueada.
+tut.quantum	O anel é o <b>quantum</b>: o tempo que a thread pode rodar. Quando ele acaba, ela para onde estiver.	The ring is the <b>quantum</b>: the time the thread may run. When it ends, the thread stops where it is.	El anillo es el <b>quantum</b>: el tiempo que el hilo puede correr. Cuando se acaba, se detiene donde esté.
+tut.finish	Thread concluída! Ela vira um bloco e ocupa aquela casa para sempre.	Thread done! It turns into a block and keeps that cell forever.	¡Hilo completado! Se convierte en un bloque y ocupa esa casilla para siempre.
+tut.same	Todas as threads rodando recebem o <b>mesmo comando</b>. Planeje para todas ao mesmo tempo.	Every running thread gets the <b>same instruction</b>. Plan for all of them at once.	Todos los hilos en ejecución reciben la <b>misma instrucción</b>. Planifica para todos a la vez.
+tut.crit	A área vermelha é a <b>região crítica</b>. S mostra as vagas livres. Uma thread a mais que as vagas = condição de corrida.	The red area is the <b>critical region</b>. S shows the free permits. One thread more than the permits = race condition.	El área roja es la <b>región crítica</b>. S muestra los permisos libres. Un hilo más que los permisos = condición de carrera.
+primer.title	Como funciona	How it works	Cómo funciona
+primer.prev	Anterior	Previous	Anterior
+primer.next	Próximo	Next	Siguiente
+primer.page	{0} / {1}	{0} / {1}	{0} / {1}
+primer.1.t	Threads	Threads	Hilos
+primer.1.b	Uma thread é um fluxo de execução. A cada poucos segundos o sistema chama <b>fork()</b> e uma nova thread nasce numa <b>entrada verde</b>.\n\nToda thread em execução obedece à mesma instrução: as setas movem todas de uma vez.	A thread is a flow of execution. Every few seconds the system calls <b>fork()</b> and a new thread is born on a <b>green gate</b>.\n\nEvery running thread obeys the same instruction: the arrows move all of them at once.	Un hilo es un flujo de ejecución. Cada pocos segundos el sistema llama a <b>fork()</b> y nace un hilo nuevo en una <b>entrada verde</b>.\n\nTodo hilo en ejecución obedece la misma instrucción: las flechas mueven a todos a la vez.
+primer.2.t	Semáforos	Semaphores	Semáforos
+primer.2.b	Um semáforo é um contador de <b>vagas</b> (S). Entrar numa área faz <b>P(S)</b>: S diminui. Sair faz <b>V(S)</b>: S aumenta.\n\nQuando S chega a zero, mais ninguém pode entrar.	A semaphore is a counter of <b>permits</b> (S). Entering an area does <b>P(S)</b>: S goes down. Leaving does <b>V(S)</b>: S goes up.\n\nWhen S reaches zero, nobody else may enter.	Un semáforo es un contador de <b>permisos</b> (S). Entrar en un área hace <b>P(S)</b>: S baja. Salir hace <b>V(S)</b>: S sube.\n\nCuando S llega a cero, nadie más puede entrar.
+primer.3.t	Quantum e entradas	Quantum and gates	Quantum y entradas
+primer.3.b	Cada thread roda por um tempo limitado, o <b>quantum</b>. Quando acaba, ela termina onde estiver e continua ocupando aquela casa.\n\nCada entrada verde é um <b>mutex</b> (S=1): uma thread parada nela tranca a entrada.	Each thread runs for a limited time, its <b>quantum</b>. When it ends, the thread stops where it is and keeps holding that cell.\n\nEach green gate is a <b>mutex</b> (S=1): a thread stopped on it locks the gate.	Cada hilo corre por un tiempo limitado, su <b>quantum</b>. Cuando se acaba, termina donde esté y sigue ocupando esa casilla.\n\nCada entrada verde es un <b>mutex</b> (S=1): un hilo detenido en ella bloquea la entrada.
+primer.4.t	Região crítica	Critical region	Región crítica
+primer.4.b	A área vermelha aceita no máximo S threads ao mesmo tempo. Uma a mais e acontece uma <b>condição de corrida</b>: o kernel cai.\n\nSe todas as entradas estiverem trancadas, o fork() empurra a nova thread para a região crítica, com pouco tempo. Sem lugar ali também: <b>deadlock</b>.	The red area accepts at most S threads at once. One more and a <b>race condition</b> happens: the kernel crashes.\n\nIf every gate is locked, fork() pushes the new thread into the critical region with little time. No room there either: <b>deadlock</b>.	El área roja acepta como máximo S hilos a la vez. Uno más y ocurre una <b>condición de carrera</b>: el kernel cae.\n\nSi todas las entradas están bloqueadas, fork() empuja el nuevo hilo a la región crítica con poco tiempo. Sin lugar ahí tampoco: <b>deadlock</b>.
+primer.5.t	signal()	signal()	signal()
+primer.5.b	O bloco azul <b>V()</b> é um sinal. Leve uma thread em execução até ele e a thread terminada mais antiga presa na região crítica (ou numa entrada) é liberada.\n\nDepois de usado, ele precisa recarregar.	The blue <b>V()</b> pad is a signal. Bring a running thread onto it and the oldest finished thread stuck in the critical region (or on a gate) is released.\n\nAfter use it needs to recharge.	El bloque azul <b>V()</b> es una señal. Lleva un hilo en ejecución hasta él y el hilo terminado más antiguo atrapado en la región crítica (o en una entrada) se libera.\n\nDespués de usarse, necesita recargarse.
+primer.6.t	Espelho	Mirror	Espejo
+primer.6.b	Threads nascidas na entrada da direita têm o selo <b>&lt;&gt;</b>: para elas, esquerda e direita são trocadas.\n\nA mesma seta afasta as duas das entradas, mas também pode jogar uma contra a outra.	Threads born on the right gate carry the <b>&lt;&gt;</b> badge: for them, left and right are swapped.\n\nThe same arrow moves both away from the gates, but it can also push them into each other.	Los hilos nacidos en la entrada derecha llevan la marca <b>&lt;&gt;</b>: para ellos, izquierda y derecha están invertidas.\n\nLa misma flecha aleja a ambos de las entradas, pero también puede chocarlos entre sí.
+opt.title	Opções	Options	Opciones
+opt.master	Volume geral	Master volume	Volumen general
+opt.music	Música	Music	Música
+opt.effects	Efeitos	Effects	Efectos
+opt.language	Idioma	Language	Idioma
+opt.fullscreen	Tela cheia	Fullscreen	Pantalla completa
+opt.flashes	Reduzir flashes e tremores	Reduce flashes and shake	Reducir destellos y temblores
+opt.seconds	Mostrar segundos nas threads	Show seconds on threads	Mostrar segundos en los hilos
+opt.reset	Apagar progresso	Erase progress	Borrar progreso
+opt.reset.idle	apagar	erase	borrar
+opt.reset.confirm	confirmar?	confirm?	¿confirmar?
+opt.on	ligado	on	sí
+opt.off	desligado	off	no
+credits.title	Créditos	Credits	Créditos
+credits.body	<b>Red Zone</b>\nJogo original (2019), feito para a disciplina de Sistemas Operacionais: <b>Gustavo Antonio Perin</b> e <b>Natã Daniel Gomes</b>.\nRework (2026): Gustavo Perin (Bobagi), com Claude Code.\n\n<b>Fontes</b>: Oswald (Vernon Adams, OFL 1.1) e VT323 (Peter Hull, OFL 1.1).\n<b>Sons de interface</b>: gravações CC0 do Freesound e OpenGameArt (as mesmas de Wilkins Pest Control).\n<b>Música e efeitos do jogo</b>: sintetizados em Python para este jogo.\n\nObrigado por jogar!	<b>Red Zone</b>\nOriginal game (2019), made for an Operating Systems course: <b>Gustavo Antonio Perin</b> and <b>Natã Daniel Gomes</b>.\nRework (2026): Gustavo Perin (Bobagi), with Claude Code.\n\n<b>Fonts</b>: Oswald (Vernon Adams, OFL 1.1) and VT323 (Peter Hull, OFL 1.1).\n<b>Interface sounds</b>: CC0 recordings from Freesound and OpenGameArt (the same as Wilkins Pest Control).\n<b>Game music and effects</b>: synthesized in Python for this game.\n\nThanks for playing!	<b>Red Zone</b>\nJuego original (2019), hecho para la materia de Sistemas Operativos: <b>Gustavo Antonio Perin</b> y <b>Natã Daniel Gomes</b>.\nRework (2026): Gustavo Perin (Bobagi), con Claude Code.\n\n<b>Fuentes</b>: Oswald (Vernon Adams, OFL 1.1) y VT323 (Peter Hull, OFL 1.1).\n<b>Sonidos de interfaz</b>: grabaciones CC0 de Freesound y OpenGameArt (las mismas de Wilkins Pest Control).\n<b>Música y efectos del juego</b>: sintetizados en Python para este juego.\n\n¡Gracias por jugar!
