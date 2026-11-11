@@ -232,6 +232,7 @@ namespace RedZone.UI
             readonly Image back;
             readonly Image[] dots;
             float pulse;
+            int shownFree = int.MinValue;
             readonly Color color;
 
             public ZoneChip(BoardView view, Zone z, RectTransform layer)
@@ -264,7 +265,7 @@ namespace RedZone.UI
             {
                 pulse = Mathf.MoveTowards(pulse, 0f, Time.unscaledDeltaTime * 2.5f);
                 int free = zone.Free;
-                text.text = "S=" + free;
+                if (free != shownFree) { shownFree = free; text.text = "S=" + free; }
                 for (int i = 0; i < dots.Length; i++)
                     dots[dots.Length - 1 - i].color = i < free ? color : Theme.A(color, 0.18f);
                 float warn = zone.Kind == Tile.Critical && free == 0 ? 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 10f) : 0f;

@@ -59,6 +59,7 @@ namespace RedZone.Core
         public readonly List<Zone> Zones = new List<Zone>();
         public readonly List<ThreadUnit> Threads = new List<ThreadUnit>();
         public readonly Dictionary<Vector2Int, float> SignalCooldown = new Dictionary<Vector2Int, float>();
+        readonly List<Vector2Int> pads = new List<Vector2Int>();     // the V() pads, kept so Tick allocates nothing
 
         public float SpawnTimer, SpawnInterval, Elapsed;
         public int Completed, Spawned, Forced, Moves, Releases, nextId = 1;
@@ -95,7 +96,7 @@ namespace RedZone.Core
                     {
                         case 'G': tiles[x, y] = Tile.Gate; break;
                         case 'R': tiles[x, y] = Tile.Critical; break;
-                        case 'S': tiles[x, y] = Tile.Signal; SignalCooldown[new Vector2Int(x, y)] = 0f; break;
+                        case 'S': tiles[x, y] = Tile.Signal; SignalCooldown[new Vector2Int(x, y)] = 0f; pads.Add(new Vector2Int(x, y)); break;
                         case '#': tiles[x, y] = Tile.Wall; break;
                         default: tiles[x, y] = Tile.Free; break;
                     }
@@ -117,6 +118,7 @@ namespace RedZone.Core
             }
             foreach (var t in o.Threads) Threads.Add(t.Copy());
             foreach (var kv in o.SignalCooldown) SignalCooldown[kv.Key] = kv.Value;
+            pads.AddRange(o.pads);
             SpawnTimer = o.SpawnTimer; SpawnInterval = o.SpawnInterval; Elapsed = o.Elapsed;
             Completed = o.Completed; Spawned = o.Spawned; Forced = o.Forced; Moves = o.Moves; Releases = o.Releases; nextId = o.nextId;
             Over = o.Over; Won = o.Won; Cause = o.Cause;
@@ -187,8 +189,11 @@ namespace RedZone.Core
             }
             if (Over) return;
 
-            var keys = new List<Vector2Int>(SignalCooldown.Keys);
-            foreach (var k in keys) SignalCooldown[k] = Mathf.Max(0f, SignalCooldown[k] - dt);
+            for (int i = 0; i < pads.Count; i++)
+            {
+                var k = pads[i];
+                SignalCooldown[k] = Mathf.Max(0f, SignalCooldown[k] - dt);
+            }
 
             SpawnInterval = Mathf.Max(Def.spawnMin, SpawnInterval - Def.spawnAccel * dt);
             SpawnTimer -= dt;

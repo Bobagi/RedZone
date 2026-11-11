@@ -65,6 +65,11 @@ namespace RedZone.EditorTools
             PlayerSettings.defaultWebScreenWidth = 1280; PlayerSettings.defaultWebScreenHeight = 720;
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.WebGL, ScriptingImplementation.IL2CPP);
             PlayerSettings.SetManagedStrippingLevel(UnityEditor.Build.NamedBuildTarget.WebGL, ManagedStrippingLevel.Medium);
+            // speed: a lean wasm (smaller download, faster start), Master IL2CPP, the GPU's performance profile
+            PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL, Il2CppCompilerConfiguration.Master);
+            PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL, UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
+            PlayerSettings.WebGL.powerPreference = WebGLPowerPreference.HighPerformance;
+            PlayerSettings.stripEngineCode = true;
             Build(BuildTarget.WebGL, "Builds/WebGL");
         }
 

@@ -10,6 +10,7 @@ namespace RedZone.UI
     /// </summary>
     public sealed class ThreadView : MonoBehaviour
     {
+        static readonly string[] Digits = { "", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         ThreadUnit unit;
         BoardView view;
         RectTransform r;
@@ -19,6 +20,7 @@ namespace RedZone.UI
         Color color;
         float spawnT, releaseT = -1f, crashT = -1f;
         bool finished;
+        int shownSecond = -1;
 
         public static ThreadView Create(RectTransform layer, ThreadUnit t, BoardView view)
         {
@@ -94,7 +96,8 @@ namespace RedZone.UI
 
             float q = Mathf.Clamp01(unit.Quantum / Mathf.Max(0.01f, unit.QuantumMax));
             ring.fillAmount = q;
-            seconds.text = Settings.ShowSeconds ? Mathf.CeilToInt(unit.Quantum).ToString() : "";
+            int sec = Settings.ShowSeconds ? Mathf.CeilToInt(unit.Quantum) : 0;
+            if (sec != shownSecond) { shownSecond = sec; seconds.text = sec > 0 ? Digits[Mathf.Min(sec, Digits.Length - 1)] : ""; }
             // the last second blinks so the player sees which thread is about to stop
             float urgent = unit.Quantum < 1.2f ? 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 22f) : 0f;
             body.color = Color.Lerp(color, Color.white, urgent * 0.45f);

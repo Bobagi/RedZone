@@ -27,7 +27,8 @@ namespace RedZone.UI
         GameObject remembered;
         RectTransform current;
 
-        // HUD
+        // HUD (texts rewritten only when the level or the count changes)
+        (LevelDef def, int done) hudKey;
         Text hudTitle, hudProgress, hudSpawn, hudBest;
         Image hudProgressFill, hudSpawnFill;
 
@@ -64,8 +65,11 @@ namespace RedZone.UI
             canvas = Ui.Canvas("[UI]", 0, transform);
             root = (RectTransform)canvas.transform;
 
-            Background.Create(root);
+            // moving layers get their own nested canvas: a drifting packet or a sliding thread then rebuilds only its
+            // own layer instead of every text and button of the screen, every frame
+            Isolate(Background.Create(root).GetComponent<RectTransform>(), false);
             boardArea = Ui.Node(root, "Board Area", Vector2.zero, Vector2.one, new Vector2(70, 120), new Vector2(-70, -170));
+            Isolate(boardArea, false);
             Board = BoardView.Create(boardArea);
 
             title = BuildTitle();
@@ -74,6 +78,7 @@ namespace RedZone.UI
             options = BuildOptions();
             credits = BuildCredits();
             hud = BuildHud();
+            Isolate(hud, true);
             intro = Ui.Fill(root, "Intro");
             pause = BuildPause();
             result = Ui.Fill(root, "Result");
@@ -92,6 +97,12 @@ namespace RedZone.UI
             firstButton.Clear();
             attract = null; attractBoard = null;
             Build();
+        }
+
+        static void Isolate(RectTransform r, bool clickable)
+        {
+            if (!r.GetComponent<Canvas>()) r.gameObject.AddComponent<Canvas>();
+            if (clickable && !r.GetComponent<GraphicRaycaster>()) r.gameObject.AddComponent<GraphicRaycaster>();
         }
 
         static void EnsureEventSystem()
@@ -188,6 +199,12 @@ namespace RedZone.UI
             var stars = Ui.Text(left, "Stars", "", 32, Theme.Mono, Theme.Yellow, TextAnchor.MiddleLeft, new Vector2(0, 0), new Vector2(1, 0), new Vector2(0, 40), new Vector2(0, 90));
             stars.gameObject.AddComponent<LiveText>().get = () => Loc.F("menu.stars", Progress.TotalStars, Levels.Campaign.Length * 3);
             Ui.Text(s, "Footer", Loc.T("menu.footer"), 24, Theme.Light, Theme.Dim, TextAnchor.LowerRight, new Vector2(0, 0), new Vector2(1, 0), new Vector2(0, 24), new Vector2(-40, 70));
+
+            // language at a glance (also in Options): PT / EN / ES
+            var lang = Ui.Button(s, Loc.Codes[Loc.Language].Substring(0, 2).ToUpperInvariant(), () => Loc.SetLanguage(Loc.Language + 1),
+                new Vector2(1, 1), new Vector2(-100, -64), new Vector2(150, 70), 34);
+            lang.GetComponent<MenuButtonFx>().marker.enabled = false;
+            lang.name = "Language";
 
             var demoArea = Ui.Node(s, "Live board", new Vector2(0.5f, 0.12f), new Vector2(0.97f, 0.9f), Vector2.zero, Vector2.zero);
             attract = BoardView.Create(demoArea);
@@ -451,6 +468,7 @@ namespace RedZone.UI
 
         RectTransform BuildHud()
         {
+            hudKey = default;     // a rebuilt HUD (language change) must be filled again
             var s = Ui.Fill(root, "HUD");
             var bar = Ui.Panel(s, "Top", Theme.A(Theme.Panel, 0.9f), new Vector2(0, 1), new Vector2(1, 1), new Vector2(24, -140), new Vector2(-24, -18));
             Ui.Outline(bar, Theme.PanelLine, 2f);
@@ -502,19 +520,14 @@ namespace RedZone.UI
             if (f == null || f.Board == null || !hud.gameObject.activeSelf) return;
             var b = f.Board; var def = f.Level;
             int idx = Levels.IndexOf(def);
-            hudTitle.text = (idx >= 0 ? (idx + 1).ToString("00") + "  " : "") + Loc.T(def.titleKey);
-            if (def.goal > 0)
+            if (hudKey.def != def || hudKey.done != b.Completed)
             {
-                hudProgress.text = Loc.T("hud.done") + "  " + b.Completed + " / " + def.goal;
-                hudProgressFill.fillAmount = b.Progress;
-                hudBest.text = "";
+                hudKey = (def, b.Completed);
+                hudTitle.text = (idx >= 0 ? (idx + 1).ToString("00") + "  " : "") + Loc.T(def.titleKey);
+                hudProgress.text = Loc.T("hud.done") + "  " + b.Completed + (def.goal > 0 ? " / " + def.goal : "");
+                hudBest.text = def.goal > 0 ? "" : Loc.F("levels.best", Progress.Best(def.id));
             }
-            else
-            {
-                hudProgress.text = Loc.T("hud.done") + "  " + b.Completed;
-                hudProgressFill.fillAmount = (b.Elapsed % 10f) / 10f;
-                hudBest.text = Loc.F("levels.best", Progress.Best(def.id));
-            }
+            hudProgressFill.fillAmount = def.goal > 0 ? b.Progress : (b.Elapsed % 10f) / 10f;
             hudSpawnFill.fillAmount = Mathf.Clamp01(1f - b.SpawnTimer / Mathf.Max(0.01f, b.SpawnInterval));
             hudSpawnFill.color = b.Pressure >= 1f ? Theme.Critical : Theme.Yellow;
         }
@@ -661,7 +674,8 @@ namespace RedZone.UI
         public System.Func<string> get;
         Text t;
         void Awake() => t = GetComponent<Text>();
-        void Update() { if (get != null && t) t.text = get(); }
+        string last;
+        void Update() { if (get == null || !t) return; var v = get(); if (v != last) { last = v; t.text = v; } }
     }
 
     public sealed class Blink : MonoBehaviour
