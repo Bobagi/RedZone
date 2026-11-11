@@ -22,6 +22,11 @@ namespace RedZone.UI
         float shake, flashCritical;
         Vector2 shakeOffset;
 
+        /// <summary>The title screen's live board plays no sound.</summary>
+        public bool Silent;
+
+        void Play(string name, float volume, float pitch = 1f) { if (!Silent) Sfx.Play(name, volume, pitch); }
+
         public Board Board => board;
         public RectTransform Root => root;
 
@@ -60,8 +65,8 @@ namespace RedZone.UI
             b.Left += OnLeave;
             b.SignalUsed += OnSignal;
             b.Crashed += OnCrash;
-            b.Moved += () => Sfx.Play("move", 0.35f, Random.Range(0.96f, 1.04f));
-            b.Bumped += () => { Sfx.Play("bump", 0.4f); Shake(4f); };
+            b.Moved += () => Play("move", 0.35f, Random.Range(0.96f, 1.04f));
+            b.Bumped += () => { Play("bump", 0.4f); Shake(4f); };
             foreach (var t in b.Threads) OnSpawn(t);
             Fit();
         }
@@ -122,7 +127,7 @@ namespace RedZone.UI
             var v = ThreadView.Create(threadLayer, t, this);
             views[t.Id] = v;
             Popup(t.Forced ? "fork()!" : "fork()", t.Forced ? Theme.Critical : Theme.Gate, t.Pos, 0.9f);
-            Sfx.Play(t.Forced ? "forced" : "fork", 0.6f);
+            Play(t.Forced ? "forced" : "fork", 0.6f);
             if (t.Forced) Shake(10f);
         }
 
@@ -133,7 +138,7 @@ namespace RedZone.UI
             bool bad = tile == Tile.Gate || tile == Tile.Critical;
             Popup(bad ? "exit()" : "exit(0)", bad ? Theme.Yellow : Theme.Text, t.Pos, 0.8f);
             Burst(t.Pos, bad ? Theme.Yellow : Theme.Threads[t.Id % Theme.Threads.Length], 10);
-            Sfx.Play(bad ? "finish_bad" : "finish", 0.55f);
+            Play(bad ? "finish_bad" : "finish", 0.55f);
         }
 
         void OnRelease(ThreadUnit t)
@@ -147,7 +152,7 @@ namespace RedZone.UI
         {
             if (z.Kind != Tile.Critical) return;
             Popup("P(S)", Theme.Critical, t.Pos, 1f);
-            Sfx.Play("enter", 0.5f, 1f + 0.08f * z.Count);
+            Play("enter", 0.5f, 1f + 0.08f * z.Count);
             ChipFor(z)?.Pulse();
         }
 
@@ -155,13 +160,13 @@ namespace RedZone.UI
         {
             if (z.Kind != Tile.Critical) return;
             Popup("V(S)", Theme.Gate, t.Pos, 0.9f);
-            Sfx.Play("leave", 0.45f);
+            Play("leave", 0.45f);
             ChipFor(z)?.Pulse();
         }
 
         void OnSignal(Vector2Int pad)
         {
-            Sfx.Play("signal", 0.7f);
+            Play("signal", 0.7f);
             Burst(pad, Theme.Signal, 14);
         }
 
@@ -169,7 +174,7 @@ namespace RedZone.UI
         {
             Shake(36f);
             flashCritical = 1f;
-            Sfx.Play("crash", 0.9f);
+            Play("crash", 0.9f);
             if (z != null) foreach (var c in z.Cells) Burst(c, Theme.Critical, 8);
             foreach (var v in views.Values) v.Crash();
         }

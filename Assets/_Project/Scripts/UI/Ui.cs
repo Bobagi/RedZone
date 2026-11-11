@@ -178,6 +178,8 @@ namespace RedZone.UI
     {
         public Image plate, line, marker;
         public Text label, value;
+        public Text[] extra;      // secondary lines (level cards): dim at rest, ink when selected
+        public Image[] icons;     // stars: yellow at rest, ink when selected
         bool selected;
         float t;
         Selectable selectable;
@@ -208,6 +210,8 @@ namespace RedZone.UI
             if (label) label.color = Color.Lerp(on ? Theme.Text : Theme.Dim, Theme.Ink, k);
             if (value) value.color = Color.Lerp(Theme.Yellow, Theme.Ink, k);
             if (marker) { marker.color = Theme.A(Theme.Ink, k); }
+            if (extra != null) foreach (var e in extra) if (e) e.color = Color.Lerp(Theme.Dim, Theme.Ink, k);
+            if (icons != null) foreach (var i in icons) if (i) i.color = Color.Lerp(Theme.A(Theme.Yellow, i.color.a), Theme.A(Theme.Ink, i.color.a), k);
             transform.localScale = Vector3.one * (1f + 0.025f * k);
         }
     }
