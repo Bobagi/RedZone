@@ -15,7 +15,7 @@ namespace RedZone.UI
         public static readonly Color Gate = Hex(0x2EE07F);
         public static readonly Color Critical = Hex(0xFF3B4E);
         public static readonly Color Signal = Hex(0x43A8FF);
-        public static readonly Color Wall = Hex(0x3B4466);
+        public static readonly Color Wall = Hex(0x5A6488);
         public static readonly Color Yellow = Hex(0xFFD23F);
         public static readonly Color Text = Hex(0xEAF0FF);
         public static readonly Color Dim = Hex(0x8C97BF);

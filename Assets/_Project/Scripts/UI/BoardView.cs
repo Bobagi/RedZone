@@ -97,7 +97,7 @@ namespace RedZone.UI
             var img = Ui.Image(r, "Fill", c, Theme.Round, true);
             if (tile == Tile.Wall)
             {
-                var s = Ui.Image(r, "Stripes", Theme.A(Theme.Ink, 0.35f), Theme.Stripes);
+                var s = Ui.Image(r, "Stripes", Theme.A(Theme.Ink, 0.75f), Theme.Stripes);
                 s.type = Image.Type.Tiled;
                 Ui.Rect(s.gameObject, Vector2.zero, Vector2.one, new Vector2(6, 6), new Vector2(-6, -6));
             }
@@ -187,8 +187,8 @@ namespace RedZone.UI
 
         public void Popup(string text, Color color, Vector2 cell, float scale)
         {
-            var r = Ui.Box(fxLayer, "Popup", new Vector2(0.5f, 0.5f), CellPos(cell) + new Vector2(0, 40), new Vector2(240, 60));
-            var t = Ui.Label(r, text, Mathf.RoundToInt(44 * scale), Theme.Mono, color);
+            var r = Ui.Box(fxLayer, "Popup", new Vector2(0.5f, 0.5f), CellPos(cell) + new Vector2(0, 40), new Vector2(300, 70));
+            var t = Ui.Label(r, text, Mathf.RoundToInt(58 * scale), Theme.Mono, color);
             Ui.Outline(t, Theme.A(Theme.Ink, 0.9f), 2f);
             r.gameObject.AddComponent<FloatAway>().Init(new Vector2(0, 70f), 0.9f);
         }
